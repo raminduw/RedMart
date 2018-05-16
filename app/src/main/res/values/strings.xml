@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RedMart</string>
+    <string name="emptyTag">tag</string>
+    <string name="msg.addToCart">ADD TO CART</string>
+    <string name="err.productListNotFound">Product list not found</string>
+    <string name="err.productDetailsNotFound">Product details not found</string>
+    <string name="err.addToCartPending">Add to cart pending</string>
+
+</resources>
