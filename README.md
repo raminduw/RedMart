@@ -1,4 +1,4 @@
-# RedMart Assignment
+# RedMart Sample Application
 APK File : [DOWNLOAD LINK](https://drive.google.com/open?id=0BxJ0KCoLDAvnX05LazNaNFdrS0U)
 
 ---
