@@ -1,4 +1,6 @@
 # RedMart Sample Application
+This is demo application to show online shopping application(Followed RedMart).
+
 APK File : [DOWNLOAD LINK](https://drive.google.com/open?id=0BxJ0KCoLDAvnX05LazNaNFdrS0U)
 
 ---
