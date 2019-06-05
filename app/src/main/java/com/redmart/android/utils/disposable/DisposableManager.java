@@ -1,5 +1,7 @@
 package com.redmart.android.utils.disposable;
 
+import javax.inject.Inject;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -7,7 +9,8 @@ public class DisposableManager {
 
     private CompositeDisposable compositeDisposable;
 
-     public DisposableManager() {
+    @Inject
+    public DisposableManager() {
         compositeDisposable = new CompositeDisposable();
     }
 

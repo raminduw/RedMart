@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ApiModule.class, PresenterHelperModule.class})
+@Component(modules = {ApiModule.class, SchedulerModule.class})
 
 public interface AppComponent {
 

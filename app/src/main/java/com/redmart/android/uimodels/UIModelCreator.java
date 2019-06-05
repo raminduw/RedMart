@@ -9,6 +9,8 @@ import com.redmart.android.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dagger.Module;
 
 /**
@@ -16,6 +18,11 @@ import dagger.Module;
  */
 @Module
 public class UIModelCreator {
+
+    @Inject
+    public UIModelCreator(){
+
+    }
 
     public ProductDetailUIModel getProductDetailViewModel(ProductDetailsResponse productDetailsResponse) {
         ProductDetailUIModel productDetailViewModel = null;
