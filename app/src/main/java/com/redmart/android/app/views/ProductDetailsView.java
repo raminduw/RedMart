@@ -1,6 +1,6 @@
 package com.redmart.android.app.views;
 
-import com.redmart.android.viewmodels.ProductDetailViewModel;
+import com.redmart.android.uimodels.ProductDetailUIModel;
 
 /**
  * Created by ramindu.weeraman on 29/3/18.
@@ -12,7 +12,7 @@ public interface ProductDetailsView {
 
     void showErrorMsg(int stringResourceId);
 
-    void showProductDetails(ProductDetailViewModel productDetailViewModel);
+    void showProductDetails(ProductDetailUIModel productDetailViewModel);
 
 
 }

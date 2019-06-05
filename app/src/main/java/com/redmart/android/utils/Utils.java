@@ -77,7 +77,6 @@ public class Utils {
 
 
     public void loadThisImage(Context context, String urlImage, ImageView imageView) {
-        Log.d("TAG", "URL : " + urlImage);
         Glide.with(context)
                 .load(urlImage)
                 .placeholder(R.color.white)

@@ -13,10 +13,10 @@ import com.redmart.android.R;
 import com.redmart.android.app.api.RedMartApiImpl;
 import com.redmart.android.app.presenters.ProductListPresenter;
 import com.redmart.android.app.views.ProductListView;
-import com.redmart.android.responseModels.productList.Product;
-import com.redmart.android.responseModels.productList.ProductListResponse;
-import com.redmart.android.viewmodels.ProductViewModel;
-import com.redmart.android.viewmodels.ViewModelCreator;
+import com.redmart.android.responsemodels.productList.Product;
+import com.redmart.android.responsemodels.productList.ProductListResponse;
+import com.redmart.android.uimodels.ProductItemUIModel;
+import com.redmart.android.uimodels.ViewModelCreator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,8 +29,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -60,7 +60,7 @@ public class ProductListPresenterTest {
     @Before
     public void before() throws Exception {
 
-        productListPresenter = new ProductListPresenter(productListView, redMartApi, recyclerView, Schedulers.immediate(), Schedulers.immediate());
+        productListPresenter = new ProductListPresenter(productListView, redMartApi, recyclerView, Schedulers.trampoline(), Schedulers.trampoline());
         productListPresenter.setViewModelCreator(viewModelCreator);
     }
 
@@ -102,7 +102,7 @@ public class ProductListPresenterTest {
     @Test
     public void testGetValidProductListNoError() {
         ProductListResponse productListResponse = new ProductListResponse();
-        List<ProductViewModel> productViewModelList = new ArrayList<>();
+        List<ProductItemUIModel> productViewModelList = new ArrayList<>();
 
         when(redMartApi.getProductList("0", "20"))
                 .thenReturn(Observable.just(productListResponse));
@@ -116,7 +116,7 @@ public class ProductListPresenterTest {
     @Test
     public void testGetValidProductListNoSuccess() {
         ProductListResponse productListResponse = new ProductListResponse();
-        List<ProductViewModel> productViewModelList = new ArrayList<>();
+        List<ProductItemUIModel> productViewModelList = new ArrayList<>();
 
         when(redMartApi.getProductList("0", "20"))
                 .thenReturn(Observable.just(productListResponse));
@@ -155,7 +155,7 @@ public class ProductListPresenterTest {
     @Test
     public void testCreateNullViewModel() throws Exception {
         ViewModelCreator viewModelCreator = new ViewModelCreator();
-        List<ProductViewModel> viewModels = viewModelCreator.getProductViewModelList(null);
+        List<ProductItemUIModel> viewModels = viewModelCreator.getProductViewModelList(null);
         assertEquals(null, viewModels);
     }
 

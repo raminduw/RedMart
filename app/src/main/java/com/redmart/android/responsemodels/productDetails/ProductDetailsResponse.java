@@ -1,10 +1,10 @@
 
-package com.redmart.android.responseModels.productDetails;
+package com.redmart.android.responsemodels.productDetails;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.redmart.android.responseModels.productList.Product;
-import com.redmart.android.responseModels.productList.Status;
+import com.redmart.android.responsemodels.productList.Product;
+import com.redmart.android.responsemodels.productList.Status;
 
 
 public class ProductDetailsResponse {

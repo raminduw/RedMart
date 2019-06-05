@@ -1,9 +1,9 @@
-package com.redmart.android.viewmodels;
+package com.redmart.android.uimodels;
 
-import com.redmart.android.responseModels.productDetails.ProductDetailsResponse;
-import com.redmart.android.responseModels.productList.Primary;
-import com.redmart.android.responseModels.productList.Product;
-import com.redmart.android.responseModels.productList.ProductListResponse;
+import com.redmart.android.responsemodels.productDetails.ProductDetailsResponse;
+import com.redmart.android.responsemodels.productList.Primary;
+import com.redmart.android.responsemodels.productList.Product;
+import com.redmart.android.responsemodels.productList.ProductListResponse;
 import com.redmart.android.utils.Utils;
 
 import java.util.ArrayList;
@@ -16,10 +16,10 @@ import java.util.List;
 public class ViewModelCreator {
 
 
-    public ProductDetailViewModel getProductDetailViewModel(ProductDetailsResponse productDetailsResponse) {
-        ProductDetailViewModel productDetailViewModel = null;
+    public ProductDetailUIModel getProductDetailViewModel(ProductDetailsResponse productDetailsResponse) {
+        ProductDetailUIModel productDetailViewModel = null;
         if (productDetailsResponse != null) {
-            productDetailViewModel = new ProductDetailViewModel();
+            productDetailViewModel = new ProductDetailUIModel();
             Product selectedProduct = productDetailsResponse.getProduct();
             productDetailViewModel.setProductName(selectedProduct.getTitle());
             productDetailViewModel.setProductDetails(selectedProduct != null ? selectedProduct.getMeasure().getWtOrVol() : null);
@@ -69,13 +69,13 @@ public class ViewModelCreator {
         return productDetailViewModel;
     }
 
-    public List<ProductViewModel> getProductViewModelList(ProductListResponse productListResponse) {
-        List<ProductViewModel> productViewModels = null;
+    public List<ProductItemUIModel> getProductViewModelList(ProductListResponse productListResponse) {
+        List<ProductItemUIModel> productViewModels = null;
         if (productListResponse != null) {
             productViewModels = new ArrayList<>();
-            ProductViewModel productViewModel = null;
+            ProductItemUIModel productViewModel = null;
             for (Product product : productListResponse.getProducts()) {
-                productViewModel = new ProductViewModel(0, product);
+                productViewModel = new ProductItemUIModel(0, product);
                 productViewModels.add(productViewModel);
             }
         }

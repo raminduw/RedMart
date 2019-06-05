@@ -1,5 +1,5 @@
 
-package com.redmart.android.responseModels.productList;
+package com.redmart.android.responsemodels.productList;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

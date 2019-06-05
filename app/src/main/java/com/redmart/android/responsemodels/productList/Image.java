@@ -1,5 +1,5 @@
 
-package com.redmart.android.responseModels.productList;
+package com.redmart.android.responsemodels.productList;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,17 +7,17 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Img implements Parcelable {
+public class Image implements Parcelable {
 
     @SerializedName("h")
     @Expose
     private Long h;
-    @SerializedName("name")
-    @Expose
-    private String name;
     @SerializedName("w")
     @Expose
     private Long w;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("position")
     @Expose
     private Long position;
@@ -30,20 +30,20 @@ public class Img implements Parcelable {
         this.h = h;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Long getW() {
         return w;
     }
 
     public void setW(Long w) {
         this.w = w;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getPosition() {
@@ -63,30 +63,30 @@ public class Img implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.h);
-        dest.writeString(this.name);
         dest.writeValue(this.w);
+        dest.writeString(this.name);
         dest.writeValue(this.position);
     }
 
-    public Img() {
+    public Image() {
     }
 
-    protected Img(Parcel in) {
+    protected Image(Parcel in) {
         this.h = (Long) in.readValue(Long.class.getClassLoader());
-        this.name = in.readString();
         this.w = (Long) in.readValue(Long.class.getClassLoader());
+        this.name = in.readString();
         this.position = (Long) in.readValue(Long.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Img> CREATOR = new Parcelable.Creator<Img>() {
+    public static final Parcelable.Creator<Image> CREATOR = new Parcelable.Creator<Image>() {
         @Override
-        public Img createFromParcel(Parcel source) {
-            return new Img(source);
+        public Image createFromParcel(Parcel source) {
+            return new Image(source);
         }
 
         @Override
-        public Img[] newArray(int size) {
-            return new Img[size];
+        public Image[] newArray(int size) {
+            return new Image[size];
         }
     };
 }

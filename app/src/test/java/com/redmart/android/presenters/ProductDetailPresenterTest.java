@@ -4,9 +4,9 @@ import com.redmart.android.R;
 import com.redmart.android.app.api.RedMartApiImpl;
 import com.redmart.android.app.presenters.ProductDetailViewPresenter;
 import com.redmart.android.app.views.ProductDetailsView;
-import com.redmart.android.responseModels.productDetails.ProductDetailsResponse;
-import com.redmart.android.viewmodels.ProductDetailViewModel;
-import com.redmart.android.viewmodels.ViewModelCreator;
+import com.redmart.android.responsemodels.productDetails.ProductDetailsResponse;
+import com.redmart.android.uimodels.ProductDetailUIModel;
+import com.redmart.android.uimodels.ViewModelCreator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +16,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.never;
@@ -43,7 +43,7 @@ public class ProductDetailPresenterTest {
 
     @Before
     public void before() throws Exception {
-        detailViewPresenter = new ProductDetailViewPresenter(productDetailsView, redMartApi, Schedulers.immediate(), Schedulers.immediate());
+        detailViewPresenter = new ProductDetailViewPresenter(productDetailsView, redMartApi, Schedulers.trampoline(), Schedulers.trampoline());
         detailViewPresenter.setViewModelCreator(viewModelCreator);
     }
 
@@ -78,7 +78,7 @@ public class ProductDetailPresenterTest {
     @Test
     public void testCreateNullViewModel() throws Exception {
         ViewModelCreator viewModelCreator = new ViewModelCreator();
-        ProductDetailViewModel viewModel = viewModelCreator.getProductDetailViewModel(null);
+        ProductDetailUIModel viewModel = viewModelCreator.getProductDetailViewModel(null);
         assertEquals(null, viewModel);
     }
 
@@ -87,7 +87,7 @@ public class ProductDetailPresenterTest {
     public void testGetValidProductDetailsNoError() {
         ProductDetailsResponse productDetailsResponse = new ProductDetailsResponse();
         when(viewModelCreator.getProductDetailViewModel(productDetailsResponse))
-                .thenReturn(new ProductDetailViewModel());
+                .thenReturn(new ProductDetailUIModel());
         when(redMartApi.getProductDetails("12345"))
                 .thenReturn(Observable.just(productDetailsResponse));
         detailViewPresenter.showDetails("12345");
@@ -97,7 +97,7 @@ public class ProductDetailPresenterTest {
     @Test
     public void testGetValidProductDetailsSuccess() {
         ProductDetailsResponse productDetailsResponse = new ProductDetailsResponse();
-        ProductDetailViewModel productDetailViewModel = new ProductDetailViewModel();
+        ProductDetailUIModel productDetailViewModel = new ProductDetailUIModel();
         when(viewModelCreator.getProductDetailViewModel(productDetailsResponse))
                 .thenReturn(productDetailViewModel);
         when(redMartApi.getProductDetails("12345"))

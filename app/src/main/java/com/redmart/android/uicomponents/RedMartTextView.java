@@ -8,9 +8,6 @@ import android.util.AttributeSet;
 import com.redmart.android.R;
 import com.redmart.android.utils.Utils;
 
-
-
-
 public class RedMartTextView extends AppCompatTextView {
 
     public RedMartTextView(Context context) {

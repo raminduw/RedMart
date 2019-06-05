@@ -1,14 +1,14 @@
 package com.redmart.android.app.api;
 
 
-import com.redmart.android.responseModels.productDetails.ProductDetailsResponse;
-import com.redmart.android.responseModels.productList.ProductListResponse;
+import com.redmart.android.responsemodels.productDetails.ProductDetailsResponse;
+import com.redmart.android.responsemodels.productList.ProductListResponse;
 import com.redmart.android.utils.RedMartConstants;
 
+import io.reactivex.Observable;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
 
 /**
  * Created by ramindu.weeraman on 27/3/18.
@@ -20,7 +20,7 @@ public class RedMartApiImpl implements RedMartApi{
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RedMartConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         this.api = retrofit.create(RedMartApi.class);
     }

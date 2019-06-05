@@ -17,7 +17,7 @@ import com.redmart.android.R;
 import com.redmart.android.callbacks.OnProductItemClickListener;
 import com.redmart.android.utils.RedMartConstants;
 import com.redmart.android.utils.Utils;
-import com.redmart.android.viewmodels.ProductViewModel;
+import com.redmart.android.uimodels.ProductItemUIModel;
 import com.redmart.android.uicomponents.RedMartTextView;
 import com.redmart.android.uicomponents.RedMartSquareImageView;
 
@@ -32,12 +32,12 @@ import butterknife.ButterKnife;
 public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int LOADING_VIEW = 1;
     private static final int ITEM_VIEW = 2;
-    private List<ProductViewModel> productViewModels;
+    private List<ProductItemUIModel> productViewModels;
     private Context context;
     private OnProductItemClickListener productClickListener;
     private boolean isLoadingAdded;
 
-    public ProductListAdapter(Activity activity, List<ProductViewModel> productViewModels, OnProductItemClickListener productClickListener) {
+    public ProductListAdapter(Activity activity, List<ProductItemUIModel> productViewModels, OnProductItemClickListener productClickListener) {
         this.productViewModels = productViewModels;
         this.context = activity;
         this.productClickListener = productClickListener;
@@ -60,7 +60,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (holderObject instanceof ProductListViewHolder) {
             final ProductListViewHolder holder = (ProductListViewHolder) holderObject;
-            final ProductViewModel productData = productViewModels.get(position);
+            final ProductItemUIModel productData = productViewModels.get(position);
 
             Utils.getInstance().loadThisImage(context, RedMartConstants.getImageUrl(productData.getProduct().getImg().getName()), holder.productImageView);
             holder.productTitleTextView.setText(productData.getProduct().getTitle());
@@ -100,9 +100,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             holder.cartMinusTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    productData.setCartCounter(productData.getCartCounter() - 1);
-                    productClickListener.onCartCounterChanged(productData.getProduct(), productData.getCartCounter(), false);
-                    notifyItemChanged(position);
+                    if (productData.getCartCounter()>=0) {
+                        productData.setCartCounter(productData.getCartCounter() - 1);
+                        productClickListener.onCartCounterChanged(productData.getProduct(), productData.getCartCounter(), false);
+                        notifyItemChanged(position);
+                    }
                 }
             });
 
@@ -145,7 +147,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        productViewModels.add(new ProductViewModel());
+        productViewModels.add(new ProductItemUIModel());
         notifyItemInserted(productViewModels.size() - 1);
     }
 
@@ -153,7 +155,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         isLoadingAdded = false;
 
         int position = productViewModels.size() - 1;
-        ProductViewModel item = productViewModels.get(position);
+        ProductItemUIModel item = productViewModels.get(position);
 
         if (item != null) {
             productViewModels.remove(position);
@@ -161,7 +163,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public List<ProductViewModel> getProductViewModels() {
+    public List<ProductItemUIModel> getProductViewModels() {
         return productViewModels;
     }
 

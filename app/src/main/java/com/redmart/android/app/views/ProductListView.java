@@ -4,7 +4,7 @@ package com.redmart.android.app.views;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 
-import com.redmart.android.viewmodels.ProductViewModel;
+import com.redmart.android.uimodels.ProductItemUIModel;
 
 import java.util.List;
 /**
@@ -17,7 +17,7 @@ public interface ProductListView {
 
     void showErrorMsg( int stringResourceId);
 
-    void updateRecyclerView(List<ProductViewModel> productViewModelList);
+    void updateRecyclerView(List<ProductItemUIModel> productViewModelList);
 
     void showFooterLoader();
 

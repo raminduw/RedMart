@@ -1,5 +1,5 @@
 
-package com.redmart.android.responseModels.productList;
+package com.redmart.android.responsemodels.productList;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,8 +7,17 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LiveUp implements Parcelable {
+public class Pricing implements Parcelable {
 
+    @SerializedName("promo_id")
+    @Expose
+    private Long promoId;
+    @SerializedName("on_sale")
+    @Expose
+    private Long onSale;
+    @SerializedName("price")
+    @Expose
+    private Double price;
     @SerializedName("promo_price")
     @Expose
     private Double promoPrice;
@@ -24,6 +33,36 @@ public class LiveUp implements Parcelable {
     @SerializedName("savings_text")
     @Expose
     private String savingsText;
+    @SerializedName("discounts")
+    @Expose
+    private Discounts discounts;
+    @SerializedName("applicable_discount")
+    @Expose
+    private String applicableDiscount;
+
+    public Long getPromoId() {
+        return promoId;
+    }
+
+    public void setPromoId(Long promoId) {
+        this.promoId = promoId;
+    }
+
+    public Long getOnSale() {
+        return onSale;
+    }
+
+    public void setOnSale(Long onSale) {
+        this.onSale = onSale;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public Double getPromoPrice() {
         return promoPrice;
@@ -65,6 +104,22 @@ public class LiveUp implements Parcelable {
         this.savingsText = savingsText;
     }
 
+    public Discounts getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(Discounts discounts) {
+        this.discounts = discounts;
+    }
+
+    public String getApplicableDiscount() {
+        return applicableDiscount;
+    }
+
+    public void setApplicableDiscount(String applicableDiscount) {
+        this.applicableDiscount = applicableDiscount;
+    }
+
 
     @Override
     public int describeContents() {
@@ -73,33 +128,43 @@ public class LiveUp implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.promoId);
+        dest.writeValue(this.onSale);
+        dest.writeValue(this.price);
         dest.writeValue(this.promoPrice);
         dest.writeValue(this.savings);
         dest.writeValue(this.savingsAmount);
         dest.writeValue(this.savingsType);
         dest.writeString(this.savingsText);
+        dest.writeParcelable(this.discounts, flags);
+        dest.writeString(this.applicableDiscount);
     }
 
-    public LiveUp() {
+    public Pricing() {
     }
 
-    protected LiveUp(Parcel in) {
+    protected Pricing(Parcel in) {
+        this.promoId = (Long) in.readValue(Long.class.getClassLoader());
+        this.onSale = (Long) in.readValue(Long.class.getClassLoader());
+        this.price = (Double) in.readValue(Double.class.getClassLoader());
         this.promoPrice = (Double) in.readValue(Double.class.getClassLoader());
         this.savings = (Double) in.readValue(Double.class.getClassLoader());
         this.savingsAmount = (Double) in.readValue(Double.class.getClassLoader());
         this.savingsType = (Long) in.readValue(Long.class.getClassLoader());
         this.savingsText = in.readString();
+        this.discounts = in.readParcelable(Discounts.class.getClassLoader());
+        this.applicableDiscount = in.readString();
     }
 
-    public static final Parcelable.Creator<LiveUp> CREATOR = new Parcelable.Creator<LiveUp>() {
+    public static final Parcelable.Creator<Pricing> CREATOR = new Parcelable.Creator<Pricing>() {
         @Override
-        public LiveUp createFromParcel(Parcel source) {
-            return new LiveUp(source);
+        public Pricing createFromParcel(Parcel source) {
+            return new Pricing(source);
         }
 
         @Override
-        public LiveUp[] newArray(int size) {
-            return new LiveUp[size];
+        public Pricing[] newArray(int size) {
+            return new Pricing[size];
         }
     };
 }

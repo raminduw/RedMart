@@ -1,8 +1,8 @@
-package com.redmart.android.viewmodels;
+package com.redmart.android.uimodels;
 
 
-import com.redmart.android.responseModels.productList.Image;
-import com.redmart.android.responseModels.productList.Primary;
+import com.redmart.android.responsemodels.productList.Image;
+import com.redmart.android.responsemodels.productList.Primary;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Created by ramindu.weeraman on 29/3/18.
  */
 
-public class ProductDetailViewModel {
+public class ProductDetailUIModel {
 
     private String productName;
     private String productDetails;

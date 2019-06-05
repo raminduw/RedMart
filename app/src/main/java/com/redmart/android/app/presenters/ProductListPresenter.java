@@ -10,17 +10,18 @@ import com.redmart.android.R;
 import com.redmart.android.app.activities.RedMartProductDetailsActivity;
 import com.redmart.android.app.api.RedMartApiImpl;
 import com.redmart.android.app.views.ProductListView;
-import com.redmart.android.responseModels.productList.Product;
-import com.redmart.android.responseModels.productList.ProductListResponse;
+import com.redmart.android.responsemodels.productList.Product;
+import com.redmart.android.responsemodels.productList.ProductListResponse;
+import com.redmart.android.uimodels.ProductItemUIModel;
+import com.redmart.android.uimodels.ViewModelCreator;
 import com.redmart.android.utils.RedMartConstants;
-import com.redmart.android.viewmodels.ProductViewModel;
-import com.redmart.android.viewmodels.ViewModelCreator;
 
 import java.util.List;
 
-import rx.Observer;
-import rx.Scheduler;
-import rx.functions.Func1;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 
 /**
  * Created by ramindu.weeraman on 29/3/18.
@@ -45,7 +46,8 @@ public class ProductListPresenter {
         this.pageCounter = pageCounter;
     }
 
-    public ProductListPresenter(ProductListView dashboardView, RedMartApiImpl redMartApi, RecyclerView recyclerView, Scheduler mainScheduler, Scheduler backgroundScheduler) {
+    public ProductListPresenter(ProductListView dashboardView, RedMartApiImpl redMartApi, RecyclerView recyclerView,
+                                   Scheduler mainScheduler, Scheduler backgroundScheduler) {
         this.redMartApi = redMartApi;
         this.productListView = dashboardView;
         pageCounter = 0;
@@ -70,17 +72,27 @@ public class ProductListPresenter {
 
         redMartApi.getProductList(String.valueOf(pageCounter), String.valueOf(RedMartConstants.LIST_ITEMS_PER_ONCE)).
                 subscribeOn(backgroundScheduler).
-                map(new Func1<ProductListResponse, List<ProductViewModel>>() {
+                map(new Function<ProductListResponse, List<ProductItemUIModel>>() {
                     @Override
-                    public List<ProductViewModel> call(ProductListResponse productListResponse) {
+                    public List<ProductItemUIModel> apply(ProductListResponse productListResponse) {
                         return viewModelCreator.getProductViewModelList(productListResponse);
                     }
                 })
                 .observeOn(mainScheduler)
-                .subscribe(new Observer<List<ProductViewModel>>() {
+                .subscribe(new Observer<List<ProductItemUIModel>>() {
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(List<ProductItemUIModel> productItemUIModels) {
+                        if (productItemUIModels.size() > 0) {
+                            isLastPage = false;
+                        } else {
+                            isLastPage = true;
+                        }
+                        productListView.updateRecyclerView(productItemUIModels);
                     }
 
                     @Override
@@ -90,13 +102,8 @@ public class ProductListPresenter {
                     }
 
                     @Override
-                    public void onNext(List<ProductViewModel> productViewModelList) {
-                        if (productViewModelList.size() > 0) {
-                            isLastPage = false;
-                        } else {
-                            isLastPage = true;
-                        }
-                        productListView.updateRecyclerView(productViewModelList);
+                    public void onComplete() {
+
                     }
                 });
 

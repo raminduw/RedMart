@@ -1,5 +1,5 @@
 
-package com.redmart.android.responseModels.productList;
+package com.redmart.android.responsemodels.productList;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +7,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Primary implements Parcelable {
+public class Secondary implements Parcelable {
 
     @SerializedName("name")
     @Expose
@@ -32,6 +32,11 @@ public class Primary implements Parcelable {
         this.content = content;
     }
 
+
+    public Secondary() {
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -43,23 +48,20 @@ public class Primary implements Parcelable {
         dest.writeString(this.content);
     }
 
-    public Primary() {
-    }
-
-    protected Primary(Parcel in) {
+    protected Secondary(Parcel in) {
         this.name = in.readString();
         this.content = in.readString();
     }
 
-    public static final Parcelable.Creator<Primary> CREATOR = new Parcelable.Creator<Primary>() {
+    public static final Creator<Secondary> CREATOR = new Creator<Secondary>() {
         @Override
-        public Primary createFromParcel(Parcel source) {
-            return new Primary(source);
+        public Secondary createFromParcel(Parcel source) {
+            return new Secondary(source);
         }
 
         @Override
-        public Primary[] newArray(int size) {
-            return new Primary[size];
+        public Secondary[] newArray(int size) {
+            return new Secondary[size];
         }
     };
 }

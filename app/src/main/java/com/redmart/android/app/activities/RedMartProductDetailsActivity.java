@@ -18,12 +18,12 @@ import com.redmart.android.app.adapters.ProdDetailViewImageGalleryAdapter;
 import com.redmart.android.app.adapters.ProductDetailsMetaDescAdapter;
 import com.redmart.android.app.api.RedMartApiImpl;
 import com.redmart.android.app.presenters.ProductDetailViewPresenter;
-import com.redmart.android.viewmodels.ViewModelCreator;
 import com.redmart.android.app.views.ProductDetailsView;
-import com.redmart.android.responseModels.productList.Image;
-import com.redmart.android.responseModels.productList.Primary;
+import com.redmart.android.responsemodels.productList.Image;
+import com.redmart.android.responsemodels.productList.Primary;
 import com.redmart.android.uicomponents.RedMartTextView;
-import com.redmart.android.viewmodels.ProductDetailViewModel;
+import com.redmart.android.uimodels.ProductDetailUIModel;
+import com.redmart.android.uimodels.ViewModelCreator;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.List;
@@ -31,8 +31,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ramindu.weeraman on 29/3/18.
@@ -85,7 +85,8 @@ public class RedMartProductDetailsActivity extends BaseActivity implements Produ
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        productDetailViewPresenter = new ProductDetailViewPresenter(this,new RedMartApiImpl(),AndroidSchedulers.mainThread(),Schedulers.io());
+        productDetailViewPresenter = new ProductDetailViewPresenter(this,new RedMartApiImpl(), AndroidSchedulers.mainThread(),
+                Schedulers.io());
         productDetailViewPresenter.setViewModelCreator(new ViewModelCreator());
         productDetailViewPresenter.showDetails(productId);
     }
@@ -101,7 +102,7 @@ public class RedMartProductDetailsActivity extends BaseActivity implements Produ
 
 
     @Override
-    public void showProductDetails(ProductDetailViewModel productDetailViewModel) {
+    public void showProductDetails(ProductDetailUIModel productDetailViewModel) {
         progressBar.setVisibility(View.GONE);
         prodDetailsContainer.setVisibility(View.VISIBLE);
 

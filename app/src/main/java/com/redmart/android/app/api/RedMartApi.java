@@ -1,13 +1,13 @@
 package com.redmart.android.app.api;
 
 
-import com.redmart.android.responseModels.productDetails.ProductDetailsResponse;
-import com.redmart.android.responseModels.productList.ProductListResponse;
+import com.redmart.android.responsemodels.productDetails.ProductDetailsResponse;
+import com.redmart.android.responsemodels.productList.ProductListResponse;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by ramindu.weeraman on 27/3/18.

@@ -1,13 +1,13 @@
-package com.redmart.android.viewmodels;
+package com.redmart.android.uimodels;
 
 
-import com.redmart.android.responseModels.productList.Product;
+import com.redmart.android.responsemodels.productList.Product;
 
 /**
  * Created by ramindu.weeraman on 29/3/18.
  */
 
-public class ProductViewModel {
+public class ProductItemUIModel {
 
     public int getCartCounter() {
         return cartCounter;
@@ -28,12 +28,12 @@ public class ProductViewModel {
     private int cartCounter = 0;
     private Product product;
 
-    public ProductViewModel(int cartCounter, Product product) {
+    public ProductItemUIModel(int cartCounter, Product product) {
         this.cartCounter = cartCounter;
         this.product = product;
     }
 
-    public ProductViewModel() {
+    public ProductItemUIModel() {
 
     }
 }

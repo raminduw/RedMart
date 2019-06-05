@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.redmart.android.R;
-import com.redmart.android.responseModels.productList.Image;
+import com.redmart.android.responsemodels.productList.Image;
 import com.redmart.android.utils.RedMartConstants;
 import com.redmart.android.utils.Utils;
 import com.redmart.android.uicomponents.RedMartSquareImageView;

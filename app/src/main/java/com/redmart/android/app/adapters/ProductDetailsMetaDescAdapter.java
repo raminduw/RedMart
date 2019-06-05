@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.redmart.android.R;
-import com.redmart.android.responseModels.productList.Primary;
+import com.redmart.android.responsemodels.productList.Primary;
 import com.redmart.android.uicomponents.RedMartTextView;
 
 import java.util.List;

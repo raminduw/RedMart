@@ -19,19 +19,19 @@ import com.redmart.android.app.api.RedMartApiImpl;
 import com.redmart.android.app.presenters.ProductListPresenter;
 import com.redmart.android.app.views.ProductListView;
 import com.redmart.android.callbacks.OnProductItemClickListener;
-import com.redmart.android.responseModels.productList.Product;
+import com.redmart.android.responsemodels.productList.Product;
 import com.redmart.android.uicomponents.RedMartTextView;
+import com.redmart.android.uimodels.ProductItemUIModel;
+import com.redmart.android.uimodels.ViewModelCreator;
 import com.redmart.android.utils.GridItemDecoration;
 import com.redmart.android.utils.Utils;
-import com.redmart.android.viewmodels.ProductViewModel;
-import com.redmart.android.viewmodels.ViewModelCreator;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ramindu.weeraman on 27/3/18.
@@ -70,7 +70,8 @@ public class RedMartProductListActivity extends BaseActivity implements ProductL
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new GridItemDecoration(3, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8,
                 getResources().getDisplayMetrics()), true));
-        productListPresenter = new ProductListPresenter(this, new RedMartApiImpl(), recyclerView, AndroidSchedulers.mainThread(), Schedulers.io());
+        productListPresenter = new ProductListPresenter(this, new RedMartApiImpl(), recyclerView, AndroidSchedulers.mainThread(),
+                Schedulers.io());
         productListPresenter.setViewModelCreator(new ViewModelCreator());
         productListPresenter.getProductList();
 
@@ -101,7 +102,7 @@ public class RedMartProductListActivity extends BaseActivity implements ProductL
 
 
     @Override
-    public void updateRecyclerView(List<ProductViewModel> productViewModels) {
+    public void updateRecyclerView(List<ProductItemUIModel> productViewModels) {
         swipeRefresh.setRefreshing(false);
         if (productListAdapter == null) {
             progressBar.setVisibility(View.GONE);
