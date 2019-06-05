@@ -43,12 +43,6 @@ Please refer to the following two files to get the pattern on Unit testing we ca
 1) The above two classes are just to give a pattern of test cases. These files have not covered all the use cases.
 2) We could have easily extended this project with Espresso for UI testing with Mock API response
 
----
-### Animations & Custom View:
-
-- Implemented [Shared View Transition](https://www.youtube.com/watch?v=nA2Axt5LjKQ) while showing details view of the product. That was very easy to add :)
-- Please refer the the [WIDGETS](https://github.com/AabidMulani/android-redmart-assignment/tree/master/app/src/main/java/com/redmartassignment/android/widgets) package for all the relevant custom view used in the project.
-
 
 ---
 ### Redmart UI/UX style:
