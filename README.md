@@ -7,7 +7,6 @@ APK File : [DOWNLOAD LINK](https://drive.google.com/open?id=0BxJ0KCoLDAvnX05LazN
 ### In this project:
 ```
 ✓ Android coding standards
-✓ Good Android architecture
 ✓ Appropriate use of library
 ```
 ##### Also..
@@ -20,14 +19,13 @@ APK File : [DOWNLOAD LINK](https://drive.google.com/open?id=0BxJ0KCoLDAvnX05LazN
 ### Libraries Used:
 ```
 a) Butterknife 
-b) Timber
+b) Dagger2 
 c) Retrofit 2
-d) OkHttp3
-e) Glide
-f) Mockito
-g) ViewPagerIndicator
-h) AppCompat
-i) Design Support Library
+d) Glide
+e) Mockito
+f) ViewPagerIndicator
+g) AppCompat
+h) Design Support Library
 ```
 ---
 ### MVP Architecture:
