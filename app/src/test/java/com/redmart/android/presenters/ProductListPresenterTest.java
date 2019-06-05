@@ -10,13 +10,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.redmart.android.R;
-import com.redmart.android.app.api.RedMartApiImpl;
+import com.redmart.android.app.api.RedMartApi;
 import com.redmart.android.app.presenters.ProductListPresenter;
 import com.redmart.android.app.views.ProductListView;
 import com.redmart.android.responsemodels.productList.Product;
 import com.redmart.android.responsemodels.productList.ProductListResponse;
 import com.redmart.android.uimodels.ProductItemUIModel;
-import com.redmart.android.uimodels.ViewModelCreator;
+import com.redmart.android.uimodels.UIModelCreator;
+import com.redmart.android.utils.disposable.DisposableManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -50,9 +50,12 @@ public class ProductListPresenterTest {
     @Mock
     private ProductListView productListView;
     @Mock
-    RedMartApiImpl redMartApi;
+    RedMartApi redMartApi;
     @Mock
-    ViewModelCreator viewModelCreator;
+    UIModelCreator viewModelCreator;
+    @Mock
+    DisposableManager disposableManager;
+
 
     ProductListPresenter productListPresenter;
 
@@ -60,8 +63,8 @@ public class ProductListPresenterTest {
     @Before
     public void before() throws Exception {
 
-        productListPresenter = new ProductListPresenter(productListView, redMartApi, recyclerView, Schedulers.trampoline(), Schedulers.trampoline());
-        productListPresenter.setViewModelCreator(viewModelCreator);
+        productListPresenter = new ProductListPresenter(productListView, redMartApi, recyclerView,
+                new MockSchedulerProvider(),viewModelCreator,disposableManager);
     }
 
     @Test
@@ -154,7 +157,7 @@ public class ProductListPresenterTest {
 
     @Test
     public void testCreateNullViewModel() throws Exception {
-        ViewModelCreator viewModelCreator = new ViewModelCreator();
+        UIModelCreator viewModelCreator = new UIModelCreator();
         List<ProductItemUIModel> viewModels = viewModelCreator.getProductViewModelList(null);
         assertEquals(null, viewModels);
     }

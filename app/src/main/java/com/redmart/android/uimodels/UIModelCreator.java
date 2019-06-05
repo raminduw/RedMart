@@ -9,12 +9,13 @@ import com.redmart.android.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.Module;
+
 /**
  * Created by ramindu.weeraman on 30/3/18.
  */
-
-public class ViewModelCreator {
-
+@Module
+public class UIModelCreator {
 
     public ProductDetailUIModel getProductDetailViewModel(ProductDetailsResponse productDetailsResponse) {
         ProductDetailUIModel productDetailViewModel = null;

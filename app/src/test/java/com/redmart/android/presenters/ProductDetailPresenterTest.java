@@ -1,12 +1,13 @@
 package com.redmart.android.presenters;
 
 import com.redmart.android.R;
-import com.redmart.android.app.api.RedMartApiImpl;
+import com.redmart.android.app.api.RedMartApi;
 import com.redmart.android.app.presenters.ProductDetailViewPresenter;
 import com.redmart.android.app.views.ProductDetailsView;
 import com.redmart.android.responsemodels.productDetails.ProductDetailsResponse;
 import com.redmart.android.uimodels.ProductDetailUIModel;
-import com.redmart.android.uimodels.ViewModelCreator;
+import com.redmart.android.uimodels.UIModelCreator;
+import com.redmart.android.utils.disposable.DisposableManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.never;
@@ -33,18 +33,20 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ProductDetailPresenterTest {
     @Mock
-    RedMartApiImpl redMartApi;
+    RedMartApi redMartApi;
     @Mock
     ProductDetailsView productDetailsView;
     @Mock
-    ViewModelCreator viewModelCreator;
+    UIModelCreator viewModelCreator;
+    @Mock
+    DisposableManager disposableManager;
 
     ProductDetailViewPresenter detailViewPresenter;
 
     @Before
     public void before() throws Exception {
-        detailViewPresenter = new ProductDetailViewPresenter(productDetailsView, redMartApi, Schedulers.trampoline(), Schedulers.trampoline());
-        detailViewPresenter.setViewModelCreator(viewModelCreator);
+        detailViewPresenter = new ProductDetailViewPresenter(productDetailsView, redMartApi,
+                new MockSchedulerProvider(),viewModelCreator,disposableManager);
     }
 
     @Test
@@ -77,7 +79,7 @@ public class ProductDetailPresenterTest {
 
     @Test
     public void testCreateNullViewModel() throws Exception {
-        ViewModelCreator viewModelCreator = new ViewModelCreator();
+        UIModelCreator viewModelCreator = new UIModelCreator();
         ProductDetailUIModel viewModel = viewModelCreator.getProductDetailViewModel(null);
         assertEquals(null, viewModel);
     }

@@ -1,17 +1,15 @@
 package com.redmart.android.app.presenters;
 
-import android.support.annotation.NonNull;
-
 import com.redmart.android.R;
-import com.redmart.android.app.api.RedMartApiImpl;
+import com.redmart.android.app.api.RedMartApi;
 import com.redmart.android.app.views.ProductDetailsView;
 import com.redmart.android.responsemodels.productDetails.ProductDetailsResponse;
 import com.redmart.android.uimodels.ProductDetailUIModel;
-import com.redmart.android.uimodels.ViewModelCreator;
+import com.redmart.android.uimodels.UIModelCreator;
+import com.redmart.android.utils.disposable.DisposableManager;
+import com.redmart.android.utils.scheduler.SchedulerProvider;
 
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 
@@ -22,27 +20,18 @@ import io.reactivex.functions.Function;
 
 public class ProductDetailViewPresenter{
     private ProductDetailsView productDetailsView;
-    private RedMartApiImpl redMartApi;
-    @NonNull
-    private Scheduler backgroundScheduler;
-    @NonNull
-    private Scheduler mainScheduler;
-    @NonNull
-    private ViewModelCreator viewModelCreator;
+    private RedMartApi redMartApi;
+    private SchedulerProvider schedulerProvider;
+    private UIModelCreator viewModelCreator;
+    private DisposableManager disposableManager;
 
-    private CompositeDisposable compositeDisposable;
-
-    public void setViewModelCreator(ViewModelCreator viewModelCreator) {
-        this.viewModelCreator = viewModelCreator;
-    }
-
-    public ProductDetailViewPresenter(ProductDetailsView productDetailsView, RedMartApiImpl redMartApi,
-                                         Scheduler mainScheduler, Scheduler backgroundScheduler) {
+    public ProductDetailViewPresenter(ProductDetailsView productDetailsView, RedMartApi redMartApi,
+                                      SchedulerProvider schedulerProvider, UIModelCreator viewModelCreator, DisposableManager disposableManager) {
         this.redMartApi = redMartApi;
         this.productDetailsView = productDetailsView;
-        this.backgroundScheduler = backgroundScheduler;
-        this.mainScheduler = mainScheduler;
-        this.compositeDisposable =  new CompositeDisposable();
+        this.schedulerProvider = schedulerProvider;
+        this.viewModelCreator = viewModelCreator;
+        this.disposableManager = disposableManager;
     }
 
 
@@ -52,18 +41,18 @@ public class ProductDetailViewPresenter{
         } else {
             productDetailsView.showMainProgressBar();
             redMartApi.getProductDetails(productId).
-                    subscribeOn(backgroundScheduler).
+                    subscribeOn(schedulerProvider.getBackgroundScheduler()).
                     map(new Function<ProductDetailsResponse, ProductDetailUIModel>() {
                         @Override
                         public ProductDetailUIModel apply(ProductDetailsResponse productDetailsResponse) {
                             return viewModelCreator.getProductDetailViewModel(productDetailsResponse);
                         }
                     })
-                    .observeOn(mainScheduler)
+                    .observeOn(schedulerProvider.getMainScheduler())
                     .subscribe(new Observer<ProductDetailUIModel>() {
                         @Override
                         public void onSubscribe(Disposable d) {
-                            compositeDisposable.add(d);
+                            disposableManager.add(d);
                         }
 
                         @Override
@@ -92,12 +81,6 @@ public class ProductDetailViewPresenter{
 
     public void onAddToCartClicked() {
         productDetailsView.showErrorMsg(R.string.err_addToCartPending);
-    }
-
-    public void clearDisposable(){
-        if(!compositeDisposable.isDisposed()){
-            compositeDisposable.dispose();
-        }
     }
 
 

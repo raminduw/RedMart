@@ -15,14 +15,12 @@ import android.widget.ProgressBar;
 import com.redmart.android.BaseActivity;
 import com.redmart.android.R;
 import com.redmart.android.app.adapters.ProductListAdapter;
-import com.redmart.android.app.api.RedMartApiImpl;
 import com.redmart.android.app.presenters.ProductListPresenter;
 import com.redmart.android.app.views.ProductListView;
 import com.redmart.android.callbacks.OnProductItemClickListener;
 import com.redmart.android.responsemodels.productList.Product;
 import com.redmart.android.uicomponents.RedMartTextView;
 import com.redmart.android.uimodels.ProductItemUIModel;
-import com.redmart.android.uimodels.ViewModelCreator;
 import com.redmart.android.utils.GridItemDecoration;
 import com.redmart.android.utils.Utils;
 
@@ -30,8 +28,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ramindu.weeraman on 27/3/18.
@@ -70,9 +66,9 @@ public class RedMartProductListActivity extends BaseActivity implements ProductL
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addItemDecoration(new GridItemDecoration(3, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8,
                 getResources().getDisplayMetrics()), true));
-        productListPresenter = new ProductListPresenter(this, new RedMartApiImpl(), recyclerView, AndroidSchedulers.mainThread(),
-                Schedulers.io());
-        productListPresenter.setViewModelCreator(new ViewModelCreator());
+
+        productListPresenter = new ProductListPresenter(this,
+                redMartApi, recyclerView, schedulerProvider,viewModelCreator,disposableManager);
         productListPresenter.getProductList();
 
     }
@@ -167,4 +163,10 @@ public class RedMartProductListActivity extends BaseActivity implements ProductL
         //if swipe to refresh ,no need to show progressBar
         progressBar.setVisibility(View.GONE);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }

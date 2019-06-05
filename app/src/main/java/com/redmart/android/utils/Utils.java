@@ -20,13 +20,7 @@ import com.redmart.android.R;
 public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
-
-
     private static Utils instance;
-
-    private Utils() {
-
-    }
 
     /**
      * Create Singleton Utils class

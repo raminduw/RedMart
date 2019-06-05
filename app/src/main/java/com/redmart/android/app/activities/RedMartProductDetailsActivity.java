@@ -16,14 +16,12 @@ import com.redmart.android.BaseActivity;
 import com.redmart.android.R;
 import com.redmart.android.app.adapters.ProdDetailViewImageGalleryAdapter;
 import com.redmart.android.app.adapters.ProductDetailsMetaDescAdapter;
-import com.redmart.android.app.api.RedMartApiImpl;
 import com.redmart.android.app.presenters.ProductDetailViewPresenter;
 import com.redmart.android.app.views.ProductDetailsView;
 import com.redmart.android.responsemodels.productList.Image;
 import com.redmart.android.responsemodels.productList.Primary;
 import com.redmart.android.uicomponents.RedMartTextView;
 import com.redmart.android.uimodels.ProductDetailUIModel;
-import com.redmart.android.uimodels.ViewModelCreator;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.List;
@@ -31,8 +29,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ramindu.weeraman on 29/3/18.
@@ -85,9 +81,9 @@ public class RedMartProductDetailsActivity extends BaseActivity implements Produ
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        productDetailViewPresenter = new ProductDetailViewPresenter(this,new RedMartApiImpl(), AndroidSchedulers.mainThread(),
-                Schedulers.io());
-        productDetailViewPresenter.setViewModelCreator(new ViewModelCreator());
+        productDetailViewPresenter = new ProductDetailViewPresenter(this, redMartApi,
+                schedulerProvider,
+                viewModelCreator,disposableManager);
         productDetailViewPresenter.showDetails(productId);
     }
 
@@ -130,13 +126,13 @@ public class RedMartProductDetailsActivity extends BaseActivity implements Produ
         showProductMetaDetails(productDetailViewModel.getMetaDetailsList());
     }
 
-    private void showProductImages(List<Image> images){
+    private void showProductImages(List<Image> images) {
         imageViewPager.setAdapter(new ProdDetailViewImageGalleryAdapter(activity, images));
         indicator.setViewPager(imageViewPager);
         indicator.setVisibility(images.size() > 1 ? View.VISIBLE : View.GONE);
     }
 
-    private void showProductMetaDetails(List<Primary> metaDetailsList){
+    private void showProductMetaDetails(List<Primary> metaDetailsList) {
         recyclerView.setAdapter(new ProductDetailsMetaDescAdapter(activity, metaDetailsList));
     }
 
@@ -157,6 +153,11 @@ public class RedMartProductDetailsActivity extends BaseActivity implements Produ
         progressBar.setVisibility(View.GONE);
         errorTextView.setVisibility(View.VISIBLE);
         errorTextView.setText(stringResourceId);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
 }
