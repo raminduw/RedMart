@@ -5,16 +5,14 @@ import com.redmart.android.utils.scheduler.SchedulerProviderImp;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 
 @Module
-public class SchedulerModule {
+public abstract class SchedulerModule {
 
-    @Provides
+    @Binds
     @Singleton
-    SchedulerProvider providesScheduler() {
-        return new SchedulerProviderImp();
-    }
+    abstract SchedulerProvider bindScheduler(SchedulerProviderImp schedulerProvider) ;
 
 }
