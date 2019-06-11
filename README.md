@@ -41,5 +41,6 @@ Mockito and Junit has used to unit testing.
 Please refer the following screenshots.
 ![screen_1](https://user-images.githubusercontent.com/5441853/59253356-979e6500-8c60-11e9-8e8a-f4167cc36ac3.png)
 ![screen_2](https://user-images.githubusercontent.com/5441853/59253359-9a995580-8c60-11e9-9a12-75fd4c82e6ea.png)
+![device-2019-06-11-160736](https://user-images.githubusercontent.com/5441853/59254647-2c09c700-8c63-11e9-8730-f2cbe8ed28c6.png)
 
  
