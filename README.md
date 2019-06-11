@@ -35,10 +35,6 @@ Strictly followed MVP architecture. This helps in proper deep Unit testing and c
 ### MOCKITO (Unit testing):
 Mockito and Junit has used to unit testing.
 
-##### Please Note:
-1) The above two classes are just to give a pattern of test cases. These files have not covered all the use cases.
-2) We could have easily extended this project with Espresso for UI testing with Mock API response
-
 
 ---
 ### Redmart UI/UX style:
