@@ -46,7 +46,4 @@ Please refer to the following two files to get the pattern on Unit testing we ca
 ### Redmart UI/UX style:
 Please refer the following screenshots.
 
- <img src="https://github.com/AabidMulani/android-redmart-assignment/blob/develop/screenshots/photo_2017-08-28_05-01-03.jpg?raw=true" width="200">
- <img src="https://github.com/AabidMulani/android-redmart-assignment/blob/develop/screenshots/photo_2017-08-28_05-01-07.jpg?raw=true" width="200">
- <img src="https://github.com/AabidMulani/android-redmart-assignment/blob/develop/screenshots/photo_2017-08-28_05-01-15.jpg?raw=true" width="200">
- <img src="https://github.com/AabidMulani/android-redmart-assignment/blob/develop/screenshots/photo_2017-08-28_05-01-52.jpg?raw=true" width="200">
+ 
