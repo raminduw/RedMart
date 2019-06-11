@@ -33,9 +33,7 @@ Strictly followed MVP architecture. This helps in proper deep Unit testing and c
 
 ---
 ### MOCKITO (Unit testing):
-Please refer to the following two files to get the pattern on Unit testing we can add with the MVP architecture.
-- [DashBoardFragmentTest](https://github.com/AabidMulani/android-redmart-assignment/blob/master/app/src/test/java/com/redmartassignment/android/app/fragment/DashBoardFragmentTest.java)
-- [RedMartProductDetailsActivityTest](https://github.com/AabidMulani/android-redmart-assignment/blob/master/app/src/test/java/com/redmartassignment/android/app/activities/RedMartProductDetailsActivityTest.java)
+Mockito and Junit has used to unit testing.
 
 ##### Please Note:
 1) The above two classes are just to give a pattern of test cases. These files have not covered all the use cases.
