@@ -40,7 +40,8 @@ Mockito and Junit has used to unit testing.
 ### Redmart UI/UX style:
 Please refer the following screenshots.
 ![screen_1](https://user-images.githubusercontent.com/5441853/59253356-979e6500-8c60-11e9-8e8a-f4167cc36ac3.png)
-![screen_2](https://user-images.githubusercontent.com/5441853/59253359-9a995580-8c60-11e9-9a12-75fd4c82e6ea.png)
 ![screen_3](https://user-images.githubusercontent.com/5441853/59254816-7be88e00-8c63-11e9-909c-6d193ad210ae.png)
+![screen_2](https://user-images.githubusercontent.com/5441853/59253359-9a995580-8c60-11e9-9a12-75fd4c82e6ea.png)
+
 
  
